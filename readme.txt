@@ -31,6 +31,11 @@ Current locations:
 
 == Screenshots ==
 
+1. Widget-1.jpg
+2. Widget-2.jpg
+
+== Screenshots ==
+
 1. Soon to come
 
 == Changelog ==
