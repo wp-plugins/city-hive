@@ -32,11 +32,10 @@ Current locations:
 == Screenshots ==
 
 1. Widget-1.jpg
+City Hive plugin match any device and any design.
 2. Widget-2.jpg
+The WordPress plugin automatically presents related product according to each blog post content and visitor's location.
 
-== Screenshots ==
-
-1. Soon to come
 
 == Changelog ==
 
