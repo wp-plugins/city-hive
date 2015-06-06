@@ -5,7 +5,6 @@
    */
   function city_hive_register_meta_boxes() {
       add_meta_box( 'city-hive-meta-box', 'City Hive Products', 'city_hive_metabox_display', 'post', 'side', 'high');
-      add_meta_box( 'city-hive-meta-box', 'City Hive Products', 'city_hive_metabox_display', 'page', 'side', 'high');
   }
   // Add box to post editor
   add_action( 'add_meta_boxes', 'city_hive_register_meta_boxes' );
@@ -21,9 +20,14 @@
 
     $value = get_post_meta( $post->ID, $CITY_HIVE_SETTINGS["products_metadata_name"], true );
     $related_value = get_post_meta( $post->ID, $CITY_HIVE_SETTINGS["related_products_metadata_name"], true );
+    $related_producers_value = get_post_meta( $post->ID, $CITY_HIVE_SETTINGS["producers_metadata_name"], true );
+    $noshow_product = get_post_meta($post->ID,$CITY_HIVE_SETTINGS["products_noshow_meta"],true);
+    if ($noshow_product==='true'){
+      $boxChecked  = 'checked';
+    } else {$boxChecked  = '';}
 
 ?>
-    <label for="myplugin_new_field">Search products</label>
+    <label for="city_hive_search_products">Search products</label>
     <input type="text" id="city_hive_product_field" name="city_hive_product_field" size="25" />
     <label>Products mentioned in this post:</label>
     <div id="city_hive_selected_products"></div>
@@ -33,10 +37,19 @@
     <label>Products related to this post:</label>
     <div id="city_hive_related_selected_products"></div>
     <input type="text" id="city_hive_related_products_hidden" name="city_hive_related_products_hidden" style="display: none"/>
-    <script>
+
+    <input type="text" id="city_hive_producers_field" name="city_hive_producers_field" size="25" />
+    <label>Producers related to this post:</label>
+    <div id="city_hive_selected_producers"></div>
+    <input type="text" id="city_hive_producers_hidden" name="city_hive_producers_hidden" style="display: none"/>
+
+    <input class="checkbox" <?= $boxChecked ?> type="checkbox" id="city_hive_noshow_products_checkbox" name="city_hive_noshow_products_checkbox" />
+    <label for="city_hive_noshow_products_checkbox">don't show products for this post</label>
+      <script>
       /* global initCityHiveProducts */
       initCityHiveProducts('#city_hive_product_field', '#city_hive_selected_products', '#city_hive_products_hidden', <?= json_encode($value) ?>);
       initCityHiveProducts('#city_hive_related_product_field', '#city_hive_related_selected_products', '#city_hive_related_products_hidden', <?= json_encode($related_value) ?>);
+      initCityHiveProducers('#city_hive_producers_field', '#city_hive_selected_producers', '#city_hive_producers_hidden', <?= json_encode($related_producers_value) ?>);
 
     </script>
 
@@ -93,6 +106,22 @@
 
       // Update the meta field in the database.
       update_post_meta( $post_id, $CITY_HIVE_SETTINGS["related_products_metadata_name"], $related_data );
+
+      $producers_data = json_decode(stripcslashes($_POST['city_hive_producers_hidden']));
+      // Update the meta field in the database.
+      update_post_meta( $post_id, $CITY_HIVE_SETTINGS["producers_metadata_name"], $producers_data);
+
+      // Update the meta field in the database.
+      if (isset($_POST['city_hive_noshow_products_checkbox'])) {
+          update_post_meta( $post_id, $CITY_HIVE_SETTINGS["products_noshow_meta"], "true");
+      } else {
+
+          update_post_meta( $post_id, $CITY_HIVE_SETTINGS["products_noshow_meta"], "false");
+      }
+
+
+
+
   }
   // Handle post save (Save selected products in post metadata)
   add_action( 'save_post', 'city_hive_save_meta_box' );
@@ -110,6 +139,12 @@
       plugins_url( '/js/products.js' , __FILE__ ),
       array( 'jquery' )
     );
+
+     wp_enqueue_script(
+         'city_hive_producers',
+         plugins_url( '/js/producers.js' , __FILE__ ),
+         array( 'jquery' )
+     );
 
     wp_enqueue_style(
       'city_hive_typeahead_style',

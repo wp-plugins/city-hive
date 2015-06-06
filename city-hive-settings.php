@@ -5,5 +5,7 @@
         "metadata_name_auto"          => "city-hive-data-auto",
         "products_metadata_name"      => "city-hive-data",
         "related_products_metadata_name"      => "city-hive-data-related-products",
+        "producers_metadata_name"      => "city-hive-data-producers",
+        "products_noshow_meta"      => "city-hive-noshow"
         );
 ?>

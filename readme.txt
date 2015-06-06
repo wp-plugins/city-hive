@@ -37,8 +37,13 @@ Current locations:
 
 == Changelog ==
 
+= 0.1.1=
+* Added option to choose producers
+* Added option not to show products
+
 = 0.1 =
 * Initial release (tested & working on production sites).
+
 
 == Upgrade Notice ==
 

@@ -17,11 +17,12 @@
         success: function (data) {
           if (data.result >= 0) {
             var results = [];
-            for (var i=0;i<data.data.length;i++) {
+            var dataLength= data.data.length;
+            for (var i=0;i<dataLength;i++) {
               results.push({
                 id: data.data[i].product.id,
-                name: data.data[i].product.name,
-                synonyms: data.data[i].product.synonyms,
+                name: data.data[i].product.name
+                //synonyms: data.data[i].product.synonyms,
               });
             }
             cb(results);
