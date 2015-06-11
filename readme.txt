@@ -37,7 +37,7 @@ Current locations:
 
 == Changelog ==
 
-= 0.1.1=
+= 0.1.1 =
 * Added option to choose producers
 * Added option not to show products
 * typeahead upgraded to version 11.1
