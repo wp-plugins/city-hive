@@ -1,6 +1,5 @@
 /* global jQuery, window, document */
 'use strict';
-
 (function () {
 
     window.initCityHiveProducers = function (inputSelector, listSelector, hiddenInputSelector, initialList) {
@@ -8,74 +7,80 @@
         var listElem = jQuery(listSelector);
         var hiddenInputElem = jQuery(hiddenInputSelector);
 
-        var list=[];
+        var list=[]
 
-        function loadProducers(query, cb) {
-            jQuery.ajax({
-                url: 'http://api.cityhive.net/api/v1/producers/list.json',
-                data: { name: query },
-                success: function (data) {
-                    if (data.result >= 0) {
-                        var results = [];
-                        var dataLength= data.data.length;
-                        for (var i=0;i<dataLength;i++) {
-                            results.push({
-                                id: data.data[i].producer.id,
-                                name: data.data[i].producer.name
-                            });
-                        }
-                        cb(results);
+        var products = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+
+            prefetch: {
+                url:'http://api.cityhive.net/api/v1/products/list.json',
+                ttl:86400000, // prefetch data for ttl: 86400000 = 1 day
+                transform: function(listData) {
+                    var nameArray = [];
+                    for( var i = 0; i < listData.data.length; ++i){
+                        nameArray.push({
+                            name: listData.data[i].product.name,
+                            id: listData.data[i].product.id})
                     }
+                    return nameArray
                 }
-            });
-        }
+            }
+        });
 
-        function deleteProducer(producer, elem) {
+
+        function deleteProduct(product, elem) {
             elem.parentElement.removeChild(elem);
             list.splice(list.indexOf(elem));
-            refreshHiddenInputProducer();
+            refreshHiddenInput();
         }
 
-        function generateProducerDiv(producer) {
+        function generateProductDiv(product) {
             var elem = document.createElement('div');
-            elem.className = 'city-hive-producer';
+            elem.className = 'city-hive-product';
 
             var delElem = document.createElement('a');
             delElem.className = 'city-hive-del';
-            delElem.innerHTML = producer.name;
-            delElem.onclick = function () { deleteProducer(producer, elem); };
+            delElem.innerHTML = product.name;
+            delElem.onclick = function () { deleteProduct(product, elem); };
             elem.appendChild(delElem);
             return elem;
         }
 
-        function addProducer(producer) {
-            list.push(producer);
-            listElem[0].appendChild(generateProducerDiv(producer));
-            refreshHiddenInputProducer();
+        function addProduct(product) {
+            list.push(product);
+            listElem[0].appendChild(generateProductDiv(product));
+            refreshHiddenInput();
+            inputElem.typeahead('val', '');
         }
 
-        function refreshHiddenInputProducer() {
+        function refreshHiddenInput() {
             hiddenInputElem.val(JSON.stringify(list));
         }
 
         for (var i = 0;i < initialList.length; i++) {
-            addProducer(initialList[i]);
+            addProduct(initialList[i]);
         }
 
-        inputElem.typeahead(
-            { highlight: true },
+        inputElem.typeahead({
+                highlight: true},
             {
                 name: 'producers-dataset',
-                source: loadProducers,
+                source: products,
+                display: 'name',
+                minLength: 0,
+                limit: 10000,
                 templates: {
-                    suggestion: function (suggestion) { return '<p>' + suggestion.name + '</p>'; }
+                    suggestion: Handlebars.compile('<p>{{name}}</p>')
                 }
-            })
-
-            .on('typeahead:selected', function (e, selected) {
-                addProducer(selected);
             });
-    };
 
+        inputElem.bind('typeahead:select', function (e, selected) {
+            addProduct(selected);
+        });
+
+    }
 })();
+
+
 
