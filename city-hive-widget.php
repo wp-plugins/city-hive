@@ -5,6 +5,7 @@
    */
   function city_hive_register_meta_boxes() {
       add_meta_box( 'city-hive-meta-box', 'City Hive Products', 'city_hive_metabox_display', 'post', 'side', 'high');
+      add_meta_box( 'city-hive-meta-box', 'City Hive Products', 'city_hive_metabox_display', 'page', 'side', 'high');
   }
   // Add box to post editor
   add_action( 'add_meta_boxes', 'city_hive_register_meta_boxes' );
@@ -124,7 +125,7 @@
 
   }
   // Handle post save (Save selected products in post metadata)
-  add_action( 'save_post', 'city_hive_save_meta_box' );
+  add_action('save_post', 'city_hive_save_meta_box' );
 
 
   function city_hive_scripts_method() {

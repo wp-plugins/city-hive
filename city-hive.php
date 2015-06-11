@@ -3,7 +3,7 @@
  * Plugin Name: city-hive
  * Plugin URI: http://www.cityhive.net/wordpress
  * Description: Show City Hive buy local widget
- * Version: 0.1.2
+ * Version: 0.1.3
  * Author: City Hive
  * Author URI: http://www.cityhive.net
  * License: GPL2
