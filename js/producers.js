@@ -9,19 +9,19 @@
 
         var list=[]
 
-        var products = new Bloodhound({
+        var producers = new Bloodhound({
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
             queryTokenizer: Bloodhound.tokenizers.whitespace,
 
             prefetch: {
-                url:'http://api.cityhive.net/api/v1/products/list.json',
+                url:'http://api.cityhive.net/api/v1/producers/list.json',
                 ttl:86400000, // prefetch data for ttl: 86400000 = 1 day
                 transform: function(listData) {
                     var nameArray = [];
                     for( var i = 0; i < listData.data.length; ++i){
                         nameArray.push({
-                            name: listData.data[i].product.name,
-                            id: listData.data[i].product.id})
+                            name: listData.data[i].producer.name,
+                            id: listData.data[i].producer.id})
                     }
                     return nameArray
                 }
@@ -66,7 +66,7 @@
                 highlight: true},
             {
                 name: 'producers-dataset',
-                source: products,
+                source: producers,
                 display: 'name',
                 minLength: 0,
                 limit: 10000,
