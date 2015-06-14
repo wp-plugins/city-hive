@@ -37,6 +37,9 @@ Current locations:
 
 == Changelog ==
 
+= 0.1.5 =
+Fixing errors on creating a new post
+
 = 0.1.4 =
 * Added 'view page with city hive widget' button to content edit page
 * Layout changes in admin city hive meta box

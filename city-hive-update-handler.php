@@ -27,8 +27,11 @@
   function city_hive_handle_save( $title ) {
     global $CITY_HIVE_SETTINGS;
     global $post;
+    $results =NULL;
+    if ($post) {
+        $results = city_hive_post_page_to_server( $post->post_content, $title );
+    }
 
-    $results = city_hive_post_page_to_server( $post->post_content, $title );
 
     if ($results) {
       update_post_meta($post->ID, $CITY_HIVE_SETTINGS["metadata_name_auto"], $results);
@@ -38,4 +41,5 @@
   }
 
   add_filter( 'title_save_pre', 'city_hive_handle_save' );
+
 ?>
