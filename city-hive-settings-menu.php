@@ -38,7 +38,7 @@
   }
 	
 	//Add setting link on plugin page
-    $plugin = plugin_basename(CITY_DIR . '\city-hive.php');	
+    $plugin = plugin_basename(CITY_DIR . '/city-hive.php');
 	add_filter( "plugin_action_links_$plugin", 'cityhive_plugin_settings_link' );
 
 	function cityhive_plugin_settings_link($links) {

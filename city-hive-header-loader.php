@@ -66,10 +66,10 @@ function city_hive_load_noshow_property($postid) {
     $producers = city_hive_load_post_producers($post->ID);
     $noShowProducts = city_hive_load_noshow_property($post->ID);
 
-    if (count($products) > 0 || count($relatedProducts) > 0 || count($producers) > 0 ){
+    //if (count($products) > 0 || count($relatedProducts) > 0 || count($producers) > 0 ){
       return city_hive_generate_meta_str(true, $products, $relatedProducts, $producers, $noShowProducts);
-    }
-    return '';
+   // }
+   // return '';
   }
 
   function city_hive_get_multiple_posts_metadata() {

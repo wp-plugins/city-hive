@@ -3,7 +3,7 @@ Contributors: City Hive
 Tags: City Hive, E-commerce, affiliate
 Requires at least: 4.1.1
 Tested up to: 4.2.2
-Stable tag: 0.1.3
+Stable tag: 0.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,6 +36,10 @@ Current locations:
 
 
 == Changelog ==
+
+= 0.1.4 =
+* Added 'view page with city hive widget' button to content edit page
+* Layout changes in admin city hive meta box
 
 = 0.1.3 =
 * Show meta box on pages (and posts)
