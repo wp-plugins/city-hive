@@ -40,6 +40,7 @@ Current locations:
 = 0.1.4 =
 * Added 'view page with city hive widget' button to content edit page
 * Layout changes in admin city hive meta box
+* Fix noshow tag in multiple posts
 
 = 0.1.3 =
 * Show meta box on pages (and posts)
