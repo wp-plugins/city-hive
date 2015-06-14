@@ -79,6 +79,7 @@ function city_hive_load_noshow_property($postid) {
       $merged_products = array();
       $merged_related_products = array();
       $merged_producers = array();
+      $noShowProducts_=false;
       while (have_posts()) {
         the_post();
         $products = city_hive_load_post_products($post->ID);
@@ -94,10 +95,13 @@ function city_hive_load_noshow_property($postid) {
         if (count($producers)>0) {
             $merged_producers = array_merge($merged_producers, $producers);
         }
+        $noShowTemp = city_hive_load_noshow_property($post->ID);
+        if ($noShowTemp=='true')
+            $noShowProducts='true';
       }
-      if (count($merged_products) >0  || count($merged_related_products)>0 || count($merged_producers)>0 )  {
-        return city_hive_generate_meta_str(false, $merged_products, $merged_related_products,$merged_producers);
-      }
+      //if (count($merged_products) >0  || count($merged_related_products)>0 || count($merged_producers)>0 )  {
+        return city_hive_generate_meta_str(false, $merged_products, $merged_related_products,$merged_producers,$noShowProducts);
+      //}
     }
     return '';
   }
