@@ -32,7 +32,11 @@
 
         function deleteProduct(product, elem) {
             elem.parentElement.removeChild(elem);
-            list.splice(list.indexOf(elem));
+            for (var i=0; i<list.length; i++){
+                if (list[i].name.indexOf(elem.textContent)>=0){
+                    list.splice(i,1);
+                }
+            }
             refreshHiddenInput();
         }
 
