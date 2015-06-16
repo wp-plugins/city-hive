@@ -12,7 +12,7 @@
         var producers = new Bloodhound({
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
             queryTokenizer: Bloodhound.tokenizers.whitespace,
-
+            //using prefetch for faster load of the list
             prefetch: {
                 url:'http://api.cityhive.net/api/v1/producers/list.json',
                 ttl:86400000, // prefetch data for ttl: 86400000 = 1 day
@@ -31,7 +31,11 @@
 
         function deleteProduct(product, elem) {
             elem.parentElement.removeChild(elem);
-            list.splice(list.indexOf(elem));
+            for (var i=0; i<list.length; i++){
+                if (list[i].name.indexOf(elem.textContent)>=0){
+                    list.splice(i,1);
+                }
+            }
             refreshHiddenInput();
         }
 
