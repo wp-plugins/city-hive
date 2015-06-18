@@ -51,10 +51,21 @@
             return elem;
         }
 
+        function isExists(product){
+            for (var i=0; i<list.length; i++){
+                if (list[i].name==product.name){
+                    return true;
+                }
+            }
+            return false;
+        }
+
         function addProduct(product) {
-            list.push(product);
-            listElem[0].appendChild(generateProductDiv(product));
-            refreshHiddenInput();
+            if (!isExists(product)){
+                list.push(product);
+                listElem[0].appendChild(generateProductDiv(product));
+                refreshHiddenInput();
+            }
             inputElem.typeahead('val', '');
         }
 

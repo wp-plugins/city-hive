@@ -3,7 +3,7 @@ Contributors: City Hive
 Tags: City Hive, E-commerce, affiliate
 Requires at least: 4.1.1
 Tested up to: 4.2.2
-Stable tag: 0.1.7
+Stable tag: 0.1.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,6 +36,9 @@ Current locations:
 
 
 == Changelog ==
+
+= 0.1.8 =
+Not allowing adding the same product/producer twice
 
 = 0.1.7 =
 Fixed remove product issue
