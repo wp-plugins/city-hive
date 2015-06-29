@@ -37,8 +37,8 @@ Current locations:
 
 == Changelog ==
 
-= 0.1.8 =
-merging files. 
+= 0.1.9 =
+merging files.
 
 = 0.1.8 =
 Not allowing adding the same product/producer twice
