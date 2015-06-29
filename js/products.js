@@ -29,6 +29,28 @@
             }
         });
 
+        // producers list. using prefetch
+        var producers = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            //using prefetch for faster load of the list
+            prefetch: {
+                url:'http://api.cityhive.net/api/v1/producers/list.json',
+                ttl:86400000, // prefetch data for ttl: 86400000 = 1 day
+                transform: function(listData) {
+                    var nameArray = [];
+                    for( var i = 0; i < listData.data.length; ++i){
+                        nameArray.push({
+                            name: listData.data[i].producer.name,
+                            id: listData.data[i].producer.id})
+                    }
+                    return nameArray
+                }
+            }
+        });
+
+        var a=1;
+
         function deleteProduct(product, elem) {
             elem.parentElement.removeChild(elem);
             for (var i=0; i<list.length; i++){
@@ -77,8 +99,10 @@
             addProduct(initialList[i]);
         }
 
-        inputElem.typeahead({
-                highlight: true},
+        jQuery("#city_hive_product_field").typeahead({
+                highlight: true,
+                hint: true,
+                order: "asc"},
             {
                 name: 'products',
                 source: products,
@@ -89,6 +113,38 @@
                     suggestion: Handlebars.compile('<p>{{name}}</p>')
                 }
             });
+
+        jQuery("#city_hive_producers_field").typeahead({
+                highlight: true,
+                hint: true,
+                order: "asc"},
+            {
+                name: 'products',
+                source: producers,
+                display: 'name',
+                minLength: 0,
+                limit: 10000,
+                templates: {
+                    suggestion: Handlebars.compile('<p>{{name}}</p>')
+                }
+            });
+
+        jQuery("#city_hive_related_product_field").typeahead({
+                highlight: true,
+                hint: true,
+                order: "asc"},
+            {
+                name: 'products',
+                source: products,
+                display: 'name',
+                minLength: 0,
+                limit: 10000,
+                templates: {
+                    suggestion: Handlebars.compile('<p>{{name}}</p>')
+                }
+            });
+
+
 
         inputElem.bind('typeahead:select', function (e, selected) {
             addProduct(selected);

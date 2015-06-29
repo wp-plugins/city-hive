@@ -36,17 +36,18 @@
         <input type="text" id="city_hive_products_hidden" name="city_hive_products_hidden" style="display: none"/>
     </p>
     <p>
+        <input type="text" class= "typeahead tt-input" id="city_hive_producers_field" name="city_hive_producers_field" size="25" placeholder="Producers" />
+        <label>Producers related to this post: (beta)</label>
+        <div id="city_hive_selected_producers"></div>
+        <input type="text" id="city_hive_producers_hidden" name="city_hive_producers_hidden" style="display: none"/>
+    </p>
+    <p>
         <input type="text" id="city_hive_related_product_field" name="city_hive_related_product_field" size="25" placeholder="Related products" />
         <label>Products related to this post:</label>
         <div id="city_hive_related_selected_products"></div>
         <input type="text" id="city_hive_related_products_hidden" name="city_hive_related_products_hidden" style="display: none"/>
     </p>
-    <p>
-        <input type="text" class= "typeahead tt-input" id="city_hive_producers_field" name="city_hive_producers_field" size="25" placeholder="Producers" />
-        <label>Producers related to this post: (beta)</label>
-        <div id="city_hive_selected_producers"></div>
-        <input type="text" id="city_hive_producers_hidden" name="city_hive_producers_hidden" style="display: none"/>
-     </p>
+
      <p>
         <input class="checkbox" <?= $boxChecked ?> type="checkbox" id="city_hive_noshow_products_checkbox" name="city_hive_noshow_products_checkbox" />
         <label for="city_hive_noshow_products_checkbox">don't show products for this post (beta)</label>
@@ -56,7 +57,7 @@
       /* global initCityHiveProducts */
       initCityHiveProducts('#city_hive_product_field', '#city_hive_selected_products', '#city_hive_products_hidden', <?= json_encode($value) ?>);
       initCityHiveProducts('#city_hive_related_product_field', '#city_hive_related_selected_products', '#city_hive_related_products_hidden', <?= json_encode($related_value) ?>);
-      initCityHiveProducers('#city_hive_producers_field', '#city_hive_selected_producers', '#city_hive_producers_hidden', <?= json_encode($related_producers_value) ?>);
+      initCityHiveProducts('#city_hive_producers_field', '#city_hive_selected_producers', '#city_hive_producers_hidden', <?= json_encode($related_producers_value) ?>);
 
     </script>
     <div>
